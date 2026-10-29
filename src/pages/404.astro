@@ -12,23 +12,23 @@ const ls = [
 ---
 <Base title={`404 — ${site.name}`} description="Page not found.">
   <section class="relative isolate overflow-hidden">
-    <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_right,var(--c-line)_1px,transparent_1px),linear-gradient(to_bottom,var(--c-line)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_40%,#000_30%,transparent_100%)] opacity-60"></div>
-    <div aria-hidden="true" class="pointer-events-none absolute top-0 left-1/2 -z-10 h-96 w-[40rem] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(239_68_68/0.12),transparent)] blur-2xl"></div>
+    <div aria-hidden="true" class="blob -top-20 left-[10%] h-80 w-96 bg-accent-2/20 dark:bg-accent-2/10"></div>
+    <div aria-hidden="true" class="blob top-40 right-[5%] h-72 w-80 bg-accent/20 [animation-delay:-9s] dark:bg-accent/10"></div>
     <div class="mx-auto max-w-3xl px-5 py-20 sm:py-28">
-      <p class="mb-6 text-center font-mono text-7xl font-bold tracking-tighter text-fg/10 sm:text-8xl" aria-hidden="true">404</p>
+      <p class="mb-6 text-center font-serif text-8xl font-medium italic text-accent-2/25 sm:text-9xl" aria-hidden="true">404</p>
       <div class="term">
         <div class="term-bar" aria-hidden="true">
-          <span class="term-dot bg-[#ff5f57]"></span><span class="term-dot bg-[#febc2e]"></span><span class="term-dot bg-[#28c840]"></span>
+          <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
           <span class="ml-2 truncate font-mono text-xs text-muted">{user}@dev: ~</span>
         </div>
         <div class="space-y-2 p-6 font-mono text-sm break-words sm:text-[0.95rem]">
           <h1 class="sr-only">404 — Page not found</h1>
           <p aria-hidden="true"><span class="ps1">{user}@dev:~$</span> cd <span id="path">/this-page</span></p>
-          <p class="text-red-600 dark:text-red-400">bash: cd: <span id="path2">/this-page</span>: No such file or directory</p>
+          <p class="text-accent-2">bash: cd: <span id="path2">/this-page</span>: No such file or directory</p>
           <p class="text-muted">404 · The page you're looking for doesn't exist (or moved).</p>
           <p class="pt-2" aria-hidden="true"><span class="ps1">{user}@dev:~$</span> ls</p>
           <ul class="flex flex-wrap gap-x-6 gap-y-1">
-            {ls.map((l) => <li><a class="text-accent-2 underline-offset-4 hover:underline" href={l.href}>{l.label}</a></li>)}
+            {ls.map((l) => <li><a class="link" href={l.href}>{l.label}</a></li>)}
           </ul>
           <p class="pt-2" aria-hidden="true"><span class="ps1">{user}@dev:~$</span> <span class="block-cursor ml-0"></span></p>
         </div>

@@ -3,9 +3,9 @@ import { site } from '../site.config';
 const year = new Date().getFullYear();
 const user = site.name.toLowerCase();
 ---
-<footer class="border-t border-line">
+<footer class="border-t border-dashed border-line">
   <div class="mx-auto flex max-w-5xl flex-col gap-1 px-5 py-8 font-mono text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
     <p aria-hidden="true"><span class="ps1">{user}@dev:~$</span> logout <span class="opacity-60">— Connection to {user}.dev closed.</span></p>
-    <p>© {year} {site.name} · Built with <a class="text-accent hover:underline" href="https://astro.build">Astro</a> &amp; <a class="text-accent hover:underline" href="https://tailwindcss.com">Tailwind</a> <span aria-hidden="true">· exit 0</span></p>
+    <p>© {year} {site.name} · Built with <a class="link" href="https://astro.build">Astro</a> &amp; <a class="link" href="https://tailwindcss.com">Tailwind</a> <span aria-hidden="true">· exit 0</span></p>
   </div>
 </footer>

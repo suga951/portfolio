@@ -1,5 +1,7 @@
 ---
-import '@fontsource-variable/inter';
+import '@fontsource-variable/fraunces/soft.css';
+import '@fontsource-variable/fraunces/soft-italic.css';
+import '@fontsource-variable/figtree';
 import '@fontsource-variable/jetbrains-mono';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
@@ -20,8 +22,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta name="theme-color" content="#07090c" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1c1a16" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f5efe3" media="(prefers-color-scheme: light)" />
     <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
     <script is:inline>
       (function () {
@@ -33,11 +35,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <body class="min-h-dvh">
     <a href="#main" class="sr-only z-50 rounded-lg bg-accent px-3 py-2 text-on-accent focus:not-sr-only focus:fixed focus:top-3 focus:left-3">Skip to content</a>
     <Header />
-    <main id="main"><slot /></main>
+    <main id="main" class="overflow-x-clip"><slot /></main>
     <Footer />
     <div
       id="toast" role="status" aria-live="polite"
-      class="pointer-events-none fixed bottom-6 left-1/2 z-50 max-w-[calc(100vw-2rem)] -translate-x-1/2 translate-y-3 rounded-xl border border-accent/50 bg-surface/90 px-4 py-3 font-mono text-sm text-fg opacity-0 shadow-2xl shadow-black/20 backdrop-blur-md transition duration-300 data-[show]:translate-y-0 data-[show]:opacity-100"
+      class="pointer-events-none fixed bottom-6 left-1/2 z-50 max-w-[calc(100vw-2rem)] -translate-x-1/2 translate-y-3 rounded-[1.3rem_1rem_1.4rem_1.1rem] border border-accent-2/40 bg-surface px-4 py-3 font-mono text-sm text-fg opacity-0 shadow-lg shadow-black/10 transition duration-500 ease-calm data-[show]:translate-y-0 data-[show]:opacity-100"
     ></div>
     <script>
       // Easter egg: type "sudo" anywhere, or the Konami code.

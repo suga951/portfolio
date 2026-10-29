@@ -16,23 +16,23 @@ const contactLinks = [
   { label: 'résumé', value: contact.resume, href: contact.resume },
 ];
 const contactHref = isPlaceholder(contact.email) ? '#contact' : `mailto:${contact.email}`;
-const section = 'border-t border-line/70 py-20 sm:py-24';
+const section = 'py-20 sm:py-28';
 const wrap = 'mx-auto max-w-5xl px-5';
 ---
 <Base>
   <!-- HERO -->
   <section class="relative isolate overflow-hidden">
-    <!-- grid + glow background (decorative) -->
-    <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_right,var(--c-line)_1px,transparent_1px),linear-gradient(to_bottom,var(--c-line)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_70%_60%_at_30%_20%,#000_40%,transparent_100%)] opacity-70"></div>
-    <div aria-hidden="true" class="pointer-events-none absolute -top-40 left-1/2 -z-10 h-[34rem] w-[60rem] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--c-accent)_22%,transparent),transparent)] blur-2xl sm:left-[30%]"></div>
-    <div aria-hidden="true" class="pointer-events-none absolute top-24 right-[-10rem] -z-10 h-[26rem] w-[26rem] rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--c-accent-2)_16%,transparent),transparent)] blur-2xl"></div>
+    <!-- soft organic blobs (decorative) -->
+    <div aria-hidden="true" class="blob -top-24 -left-24 h-[28rem] w-[30rem] bg-accent/25 dark:bg-accent/15"></div>
+    <div aria-hidden="true" class="blob top-40 -right-32 h-[24rem] w-[26rem] bg-accent-2/20 [animation-delay:-8s] dark:bg-accent-2/12"></div>
+    <div aria-hidden="true" class="blob bottom-[-10rem] left-1/3 h-[18rem] w-[22rem] bg-[#d9a85b]/25 [animation-delay:-14s] dark:bg-[#d9a85b]/10"></div>
 
     <div class={`${wrap} grid items-center gap-12 pt-16 pb-20 sm:pt-24 sm:pb-28 lg:grid-cols-[1.25fr_1fr]`}>
       <div>
         {site.openToWork && (
-          <a href="#contact" class="group mb-8 inline-flex items-center gap-2.5 rounded-full border border-accent/40 bg-accent/10 py-1.5 pr-4 pl-3 text-sm font-medium text-fg transition hover:border-accent hover:bg-accent/15">
+          <a href="#contact" class="group mb-8 inline-flex items-center gap-2.5 rounded-full border border-accent/30 bg-surface/80 py-1.5 pr-4 pl-3 text-sm font-medium text-fg shadow-sm backdrop-blur transition duration-500 ease-calm hover:border-accent/60 hover:bg-surface">
             <span class="relative flex size-2.5" aria-hidden="true">
-              <span class="absolute inline-flex size-full animate-ping-soft rounded-full bg-accent"></span>
+              <span class="absolute inline-flex size-full animate-breathe rounded-full bg-accent"></span>
               <span class="relative inline-flex size-2.5 rounded-full bg-accent"></span>
             </span>
             {site.openToWorkText}
@@ -40,8 +40,8 @@ const wrap = 'mx-auto max-w-5xl px-5';
           </a>
         )}
         <p class="mb-3 font-mono text-sm text-muted" aria-hidden="true"><span class="ps1">~$</span> whoami</p>
-        <h1 class="text-5xl font-semibold tracking-tighter text-balance sm:text-6xl lg:text-7xl">
-          Hi, I'm <span class="bg-gradient-to-r from-accent to-accent-2 bg-clip-text text-transparent">{site.name}</span>.
+        <h1 class="text-5xl font-medium tracking-tight text-balance sm:text-6xl lg:text-7xl">
+          Hi, I'm <span class="squiggle text-accent-2 italic">{site.name}</span>.
         </h1>
         <p class="mt-5 font-mono text-base text-accent sm:text-lg">{site.headline}<span class="block-cursor" aria-hidden="true"></span></p>
         <p class="mt-6 max-w-xl text-lg leading-relaxed text-pretty text-muted">
@@ -59,7 +59,7 @@ const wrap = 'mx-auto max-w-5xl px-5';
       <!-- Decorative terminal summarising only the known stack -->
       <div class="term hidden lg:block" aria-hidden="true">
         <div class="term-bar">
-          <span class="term-dot bg-[#ff5f57]"></span><span class="term-dot bg-[#febc2e]"></span><span class="term-dot bg-[#28c840]"></span>
+          <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
           <span class="ml-2 truncate font-mono text-xs text-muted">suga@dev: ~</span>
         </div>
         <pre class="overflow-x-auto p-5 font-mono text-[0.8rem] leading-relaxed text-muted"><span class="ps1">~$</span> <span class="text-fg">cat stack.json</span>
@@ -85,7 +85,7 @@ const wrap = 'mx-auto max-w-5xl px-5';
           I've also done cloud work on <strong class="font-semibold text-fg">AWS</strong>, and I have strong <strong class="font-semibold text-fg">Linux</strong> skills —
           comfortable debugging, scripting and operating services from the terminal.
         </p>
-        <p class="placeholder-text rounded-xl border border-dashed border-line p-4 text-base">
+        <p class="placeholder-text rounded-[1.4rem_1rem_1.6rem_1.1rem] border border-dashed border-line bg-surface/60 p-4 text-base">
           <span class="todo mr-1.5 not-italic">TODO</span>
           [Add 2–3 sentences in your own words: years of experience, the kind of systems you've built,
           what you enjoy (APIs, performance, reliability, infra…), and what role you're looking for —
@@ -103,7 +103,7 @@ const wrap = 'mx-auto max-w-5xl px-5';
         {skills.map((s) => (
           <div class="card group">
             <div class="flex items-center gap-3">
-              <span class="grid size-10 place-items-center rounded-xl bg-gradient-to-br from-accent/20 to-accent-2/10 font-mono text-sm font-bold text-accent ring-1 ring-accent/25 ring-inset" aria-hidden="true">{s.icon}</span>
+              <span class="grid size-11 place-items-center rounded-[55%_45%_60%_40%/50%_60%_40%_50%] bg-sand font-mono text-sm font-bold text-accent-2" aria-hidden="true">{s.icon}</span>
               <h3 class="text-lg font-semibold">{s.group}</h3>
             </div>
             <ul class="mt-5 flex flex-wrap gap-1.5">
@@ -128,8 +128,8 @@ const wrap = 'mx-auto max-w-5xl px-5';
             <p class:list={['mt-2 text-sm leading-relaxed', p.placeholder ? 'placeholder-text' : 'text-muted']}>{p.description}</p>
             <ul class="mt-4 flex flex-wrap gap-1.5">{p.tags.map((t) => <li class="chip">{t}</li>)}</ul>
             <div class="mt-auto flex flex-wrap gap-x-4 gap-y-1 pt-5 font-mono text-xs">
-              {isPlaceholder(p.repo) ? <span class="text-muted">{p.repo}</span> : <a class="text-accent hover:underline" href={p.repo}>Code →</a>}
-              {isPlaceholder(p.demo) ? <span class="text-muted">{p.demo}</span> : <a class="text-accent hover:underline" href={p.demo}>Demo →</a>}
+              {isPlaceholder(p.repo) ? <span class="text-muted">{p.repo}</span> : <a class="link" href={p.repo}>Code →</a>}
+              {isPlaceholder(p.demo) ? <span class="text-muted">{p.demo}</span> : <a class="link" href={p.demo}>Demo →</a>}
             </div>
           </article>
         ))}
@@ -141,10 +141,10 @@ const wrap = 'mx-auto max-w-5xl px-5';
   <section id="blog" class={section}>
     <div class={wrap}>
       <SectionHeading cmd="tail -n 3 blog.log" title="Blog" />
-      <ul class="divide-y divide-line overflow-hidden rounded-2xl border border-line bg-surface/60">
+      <ul class="divide-y divide-dashed divide-line overflow-hidden rounded-[1.8rem_1.3rem_2rem_1.4rem] border border-line bg-surface">
         {posts.map((post) => (
           <li>
-            <a href={`${base}/blog/${post.id}/`} class="group flex flex-wrap items-center gap-x-4 gap-y-1 px-5 py-4 transition-colors hover:bg-fg/[0.03]">
+            <a href={`${base}/blog/${post.id}/`} class="group flex flex-wrap items-center gap-x-4 gap-y-1 px-5 py-4 transition-colors duration-500 ease-calm hover:bg-sand/60">
               <span class="hidden font-mono text-xs text-muted sm:inline" aria-hidden="true">-rw-r--r--</span>
               <time class="font-mono text-xs text-muted" datetime={post.data.pubDate.toISOString()}>{post.data.pubDate.toISOString().slice(0, 10)}</time>
               <span class="font-medium text-fg transition-colors group-hover:text-accent">{post.data.title}</span>
@@ -154,7 +154,7 @@ const wrap = 'mx-auto max-w-5xl px-5';
           </li>
         ))}
       </ul>
-      <p class="mt-5 font-mono text-sm"><a class="text-accent hover:underline" href={`${base}/blog/`}>cd ~/blog →</a></p>
+      <p class="mt-5 font-mono text-sm"><a class="link" href={`${base}/blog/`}>cd ~/blog →</a></p>
     </div>
   </section>
 
@@ -162,10 +162,10 @@ const wrap = 'mx-auto max-w-5xl px-5';
   <section id="contact" class={section}>
     <div class={wrap}>
       <SectionHeading cmd="./contact.sh" title="Contact" />
-      <div class="term relative max-w-2xl">
-        <div aria-hidden="true" class="pointer-events-none absolute -inset-px -z-10 rounded-2xl bg-gradient-to-br from-accent/30 via-transparent to-accent-2/30 blur-xl"></div>
+      <div class="relative isolate max-w-2xl"><div class="term">
+        <div aria-hidden="true" class="blob -right-16 -bottom-16 h-56 w-64 bg-accent/20 dark:bg-accent/10"></div>
         <div class="term-bar" aria-hidden="true">
-          <span class="term-dot bg-[#ff5f57]"></span><span class="term-dot bg-[#febc2e]"></span><span class="term-dot bg-[#28c840]"></span>
+          <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
           <span class="ml-2 truncate font-mono text-xs text-muted">suga@dev: ~/contact.sh</span>
         </div>
         <div class="p-6 sm:p-7">
@@ -176,10 +176,10 @@ const wrap = 'mx-auto max-w-5xl px-5';
           <ul class="mt-5 divide-y divide-dashed divide-line font-mono text-sm">
             {contactLinks.map((c) => (
               <li class="flex flex-wrap items-center gap-x-4 gap-y-1 py-2.5">
-                <span class="w-24 shrink-0 text-muted"><span class="text-accent" aria-hidden="true">› </span>{c.label}</span>
+                <span class="w-24 shrink-0 text-muted"><span class="text-accent-2" aria-hidden="true">› </span>{c.label}</span>
                 {isPlaceholder(c.value)
                   ? <span class="flex items-center gap-2"><span class="todo">TODO</span><span class="placeholder-text">{c.value}</span></span>
-                  : <a class="text-accent hover:underline" href={c.href}>{c.value}</a>}
+                  : <a class="link" href={c.href}>{c.value}</a>}
               </li>
             ))}
           </ul>
@@ -188,6 +188,7 @@ const wrap = 'mx-auto max-w-5xl px-5';
             <p class="font-mono text-xs text-muted" aria-hidden="true">[exit 0] waiting for your message<span class="animate-blink">…</span></p>
           </div>
         </div>
+      </div>
       </div>
     </div>
   </section>

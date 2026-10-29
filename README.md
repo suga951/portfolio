@@ -1,7 +1,7 @@
 # Suga — personal site
 
 A fast, static personal landing page + blog built with [Astro](https://astro.build) and [Tailwind CSS v4](https://tailwindcss.com)
-(via `@tailwindcss/vite`, plus `@tailwindcss/typography` for blog posts; fonts self-hosted with Fontsource: Inter + JetBrains Mono).
+(via `@tailwindcss/vite`, plus `@tailwindcss/typography` for blog posts; fonts self-hosted with Fontsource: Fraunces (serif headings), Figtree (body), JetBrains Mono (terminal bits)).
 No backend, no database — it builds to plain HTML/CSS in `dist/` and deploys free anywhere.
 
 > **First-draft status:** everything in `[square brackets]` or marked **TODO / Placeholder / Draft**
@@ -47,7 +47,7 @@ public/                    ← Static files copied as-is (favicon, résumé PDF,
 | Skills (Backend / Cloud / Systems) | `src/site.config.ts` → `skills` (delete each `note` once filled in) |
 | Projects | `src/site.config.ts` → `projects` (set `placeholder: false` when real) |
 | Intro + About paragraphs | `src/pages/index.astro` (hero `.intro` and `#about`) |
-| Colors / accent | `src/styles/global.css` (`--c-accent`, `--c-bg`… for light and dark) — used as Tailwind classes like `bg-accent`, `text-muted` |
+| Colors / accent | `src/styles/global.css` (earthy `--c-accent` moss, `--c-accent-2` terracotta, `--c-bg` cream… for light and dark) — used as Tailwind classes like `bg-accent`, `text-muted` |
 | Layout / styling | Tailwind utility classes directly in the `.astro` files |
 | Section shell prompts (`cat about.md`…) | `cmd` prop on each `<SectionHeading>` in `src/pages/index.astro` |
 | Site URL (for SEO/canonical) | `astro.config.mjs` → `site` |
