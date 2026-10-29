@@ -1,0 +1,194 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { site, contact, skills, projects, isPlaceholder } from '../site.config';
+import { getCollection } from 'astro:content';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const contactLinks = [
+  { label: 'email', value: contact.email, href: `mailto:${contact.email}` },
+  { label: 'github', value: contact.github, href: contact.github },
+  { label: 'linkedin', value: contact.linkedin, href: contact.linkedin },
+  { label: 'résumé', value: contact.resume, href: contact.resume },
+];
+const contactHref = isPlaceholder(contact.email) ? '#contact' : `mailto:${contact.email}`;
+const section = 'border-t border-line/70 py-20 sm:py-24';
+const wrap = 'mx-auto max-w-5xl px-5';
+---
+<Base>
+  <!-- HERO -->
+  <section class="relative isolate overflow-hidden">
+    <!-- grid + glow background (decorative) -->
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_right,var(--c-line)_1px,transparent_1px),linear-gradient(to_bottom,var(--c-line)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_70%_60%_at_30%_20%,#000_40%,transparent_100%)] opacity-70"></div>
+    <div aria-hidden="true" class="pointer-events-none absolute -top-40 left-1/2 -z-10 h-[34rem] w-[60rem] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--c-accent)_22%,transparent),transparent)] blur-2xl sm:left-[30%]"></div>
+    <div aria-hidden="true" class="pointer-events-none absolute top-24 right-[-10rem] -z-10 h-[26rem] w-[26rem] rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--c-accent-2)_16%,transparent),transparent)] blur-2xl"></div>
+
+    <div class={`${wrap} grid items-center gap-12 pt-16 pb-20 sm:pt-24 sm:pb-28 lg:grid-cols-[1.25fr_1fr]`}>
+      <div>
+        {site.openToWork && (
+          <a href="#contact" class="group mb-8 inline-flex items-center gap-2.5 rounded-full border border-accent/40 bg-accent/10 py-1.5 pr-4 pl-3 text-sm font-medium text-fg transition hover:border-accent hover:bg-accent/15">
+            <span class="relative flex size-2.5" aria-hidden="true">
+              <span class="absolute inline-flex size-full animate-ping-soft rounded-full bg-accent"></span>
+              <span class="relative inline-flex size-2.5 rounded-full bg-accent"></span>
+            </span>
+            {site.openToWorkText}
+            <span class="text-accent transition group-hover:translate-x-0.5" aria-hidden="true">→</span>
+          </a>
+        )}
+        <p class="mb-3 font-mono text-sm text-muted" aria-hidden="true"><span class="ps1">~$</span> whoami</p>
+        <h1 class="text-5xl font-semibold tracking-tighter text-balance sm:text-6xl lg:text-7xl">
+          Hi, I'm <span class="bg-gradient-to-r from-accent to-accent-2 bg-clip-text text-transparent">{site.name}</span>.
+        </h1>
+        <p class="mt-5 font-mono text-base text-accent sm:text-lg">{site.headline}<span class="block-cursor" aria-hidden="true"></span></p>
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-pretty text-muted">
+          I build backend services with <strong class="font-semibold text-fg">NestJS</strong> and TypeScript,
+          deploy and run them on <strong class="font-semibold text-fg">AWS</strong>, and I'm at home on the{' '}
+          <strong class="font-semibold text-fg">Linux</strong> command line. I'm currently looking for my next backend role.
+        </p>
+        <div class="mt-9 flex flex-wrap gap-3">
+          <a class="btn btn-primary" href={contactHref}>Contact me <span aria-hidden="true">→</span></a>
+          <a class="btn" href="#projects">See projects</a>
+          {!isPlaceholder(contact.github) && <a class="btn" href={contact.github}>GitHub</a>}
+        </div>
+      </div>
+
+      <!-- Decorative terminal summarising only the known stack -->
+      <div class="term hidden lg:block" aria-hidden="true">
+        <div class="term-bar">
+          <span class="term-dot bg-[#ff5f57]"></span><span class="term-dot bg-[#febc2e]"></span><span class="term-dot bg-[#28c840]"></span>
+          <span class="ml-2 truncate font-mono text-xs text-muted">suga@dev: ~</span>
+        </div>
+        <pre class="overflow-x-auto p-5 font-mono text-[0.8rem] leading-relaxed text-muted"><span class="ps1">~$</span> <span class="text-fg">cat stack.json</span>
+{'{'}
+  <span class="text-accent-2">"role"</span>:   <span class="text-accent">"backend developer"</span>,
+  <span class="text-accent-2">"stack"</span>:  [<span class="text-accent">"NestJS"</span>, <span class="text-accent">"Node.js"</span>, <span class="text-accent">"TypeScript"</span>],
+  <span class="text-accent-2">"cloud"</span>:  <span class="text-accent">"AWS"</span>,
+  <span class="text-accent-2">"os"</span>:     <span class="text-accent">"Linux"</span>,
+  <span class="text-accent-2">"status"</span>: <span class="text-accent">"open_to_work"</span>
+{'}'}
+<span class="ps1">~$</span> <span class="block-cursor ml-0"></span></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class={section}>
+    <div class={wrap}>
+      <SectionHeading cmd="cat about.md" title="About" />
+      <div class="max-w-2xl space-y-5 text-lg leading-relaxed text-muted">
+        <p>
+          I'm a backend developer who has worked mostly with <strong class="font-semibold text-fg">NestJS</strong> on Node.js and TypeScript.
+          I've also done cloud work on <strong class="font-semibold text-fg">AWS</strong>, and I have strong <strong class="font-semibold text-fg">Linux</strong> skills —
+          comfortable debugging, scripting and operating services from the terminal.
+        </p>
+        <p class="placeholder-text rounded-xl border border-dashed border-line p-4 text-base">
+          <span class="todo mr-1.5 not-italic">TODO</span>
+          [Add 2–3 sentences in your own words: years of experience, the kind of systems you've built,
+          what you enjoy (APIs, performance, reliability, infra…), and what role you're looking for —
+          e.g. remote / location / full-time / contract.]
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class={section}>
+    <div class={wrap}>
+      <SectionHeading cmd="ls -la skills/" title="Skills" />
+      <div class="grid gap-5 md:grid-cols-3">
+        {skills.map((s) => (
+          <div class="card group">
+            <div class="flex items-center gap-3">
+              <span class="grid size-10 place-items-center rounded-xl bg-gradient-to-br from-accent/20 to-accent-2/10 font-mono text-sm font-bold text-accent ring-1 ring-accent/25 ring-inset" aria-hidden="true">{s.icon}</span>
+              <h3 class="text-lg font-semibold">{s.group}</h3>
+            </div>
+            <ul class="mt-5 flex flex-wrap gap-1.5">
+              {s.items.map((i) => <li class="chip">{i}</li>)}
+            </ul>
+            {s.note && <p class="placeholder-text mt-5 text-sm leading-relaxed"><span class="todo mr-1 not-italic">TODO</span> {s.note}</p>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class={section}>
+    <div class={wrap}>
+      <SectionHeading cmd="ls ~/projects" title="Projects" />
+      <div class="grid gap-5 md:grid-cols-3">
+        {projects.map((p) => (
+          <article class:list={['card flex flex-col', p.placeholder && 'border-dashed']}>
+            {p.placeholder && <span class="todo self-start">Placeholder</span>}
+            <h3 class="mt-3 text-lg font-semibold">{p.title}</h3>
+            <p class:list={['mt-2 text-sm leading-relaxed', p.placeholder ? 'placeholder-text' : 'text-muted']}>{p.description}</p>
+            <ul class="mt-4 flex flex-wrap gap-1.5">{p.tags.map((t) => <li class="chip">{t}</li>)}</ul>
+            <div class="mt-auto flex flex-wrap gap-x-4 gap-y-1 pt-5 font-mono text-xs">
+              {isPlaceholder(p.repo) ? <span class="text-muted">{p.repo}</span> : <a class="text-accent hover:underline" href={p.repo}>Code →</a>}
+              {isPlaceholder(p.demo) ? <span class="text-muted">{p.demo}</span> : <a class="text-accent hover:underline" href={p.demo}>Demo →</a>}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section id="blog" class={section}>
+    <div class={wrap}>
+      <SectionHeading cmd="tail -n 3 blog.log" title="Blog" />
+      <ul class="divide-y divide-line overflow-hidden rounded-2xl border border-line bg-surface/60">
+        {posts.map((post) => (
+          <li>
+            <a href={`${base}/blog/${post.id}/`} class="group flex flex-wrap items-center gap-x-4 gap-y-1 px-5 py-4 transition-colors hover:bg-fg/[0.03]">
+              <span class="hidden font-mono text-xs text-muted sm:inline" aria-hidden="true">-rw-r--r--</span>
+              <time class="font-mono text-xs text-muted" datetime={post.data.pubDate.toISOString()}>{post.data.pubDate.toISOString().slice(0, 10)}</time>
+              <span class="font-medium text-fg transition-colors group-hover:text-accent">{post.data.title}</span>
+              {post.data.draft && <span class="todo">Draft</span>}
+              <span class="ml-auto hidden text-accent opacity-0 transition group-hover:translate-x-0.5 group-hover:opacity-100 sm:inline" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-5 font-mono text-sm"><a class="text-accent hover:underline" href={`${base}/blog/`}>cd ~/blog →</a></p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class={section}>
+    <div class={wrap}>
+      <SectionHeading cmd="./contact.sh" title="Contact" />
+      <div class="term relative max-w-2xl">
+        <div aria-hidden="true" class="pointer-events-none absolute -inset-px -z-10 rounded-2xl bg-gradient-to-br from-accent/30 via-transparent to-accent-2/30 blur-xl"></div>
+        <div class="term-bar" aria-hidden="true">
+          <span class="term-dot bg-[#ff5f57]"></span><span class="term-dot bg-[#febc2e]"></span><span class="term-dot bg-[#28c840]"></span>
+          <span class="ml-2 truncate font-mono text-xs text-muted">suga@dev: ~/contact.sh</span>
+        </div>
+        <div class="p-6 sm:p-7">
+          <p class="text-pretty text-muted">
+            I'm <strong class="font-semibold text-fg">open to backend roles</strong> (NestJS / Node.js / TypeScript / AWS).
+            The fastest way to reach me is by email.
+          </p>
+          <ul class="mt-5 divide-y divide-dashed divide-line font-mono text-sm">
+            {contactLinks.map((c) => (
+              <li class="flex flex-wrap items-center gap-x-4 gap-y-1 py-2.5">
+                <span class="w-24 shrink-0 text-muted"><span class="text-accent" aria-hidden="true">› </span>{c.label}</span>
+                {isPlaceholder(c.value)
+                  ? <span class="flex items-center gap-2"><span class="todo">TODO</span><span class="placeholder-text">{c.value}</span></span>
+                  : <a class="text-accent hover:underline" href={c.href}>{c.value}</a>}
+              </li>
+            ))}
+          </ul>
+          <div class="mt-6 flex flex-wrap items-center gap-4">
+            <a class="btn btn-primary" href={contactHref}>Say hello <span aria-hidden="true">→</span></a>
+            <p class="font-mono text-xs text-muted" aria-hidden="true">[exit 0] waiting for your message<span class="animate-blink">…</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
