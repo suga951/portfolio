@@ -1,0 +1,66 @@
+---
+import '@fontsource-variable/inter';
+import '@fontsource-variable/jetbrains-mono';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../site.config';
+
+interface Props { title?: string; description?: string; }
+const { title = site.title, description = site.description } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#07090c" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+    <script is:inline>
+      (function () {
+        var t = localStorage.getItem('theme');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      })();
+    </script>
+  </head>
+  <body class="min-h-dvh">
+    <a href="#main" class="sr-only z-50 rounded-lg bg-accent px-3 py-2 text-on-accent focus:not-sr-only focus:fixed focus:top-3 focus:left-3">Skip to content</a>
+    <Header />
+    <main id="main"><slot /></main>
+    <Footer />
+    <div
+      id="toast" role="status" aria-live="polite"
+      class="pointer-events-none fixed bottom-6 left-1/2 z-50 max-w-[calc(100vw-2rem)] -translate-x-1/2 translate-y-3 rounded-xl border border-accent/50 bg-surface/90 px-4 py-3 font-mono text-sm text-fg opacity-0 shadow-2xl shadow-black/20 backdrop-blur-md transition duration-300 data-[show]:translate-y-0 data-[show]:opacity-100"
+    ></div>
+    <script>
+      // Easter egg: type "sudo" anywhere, or the Konami code.
+      const toast = document.getElementById('toast')!;
+      let timer: number | undefined;
+      const show = (msg: string) => {
+        toast.textContent = msg;
+        toast.dataset.show = '';
+        clearTimeout(timer);
+        timer = window.setTimeout(() => delete toast.dataset.show, 3500);
+      };
+      const konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+      let buf: string[] = [];
+      window.addEventListener('keydown', (e) => {
+        const t = e.target as HTMLElement;
+        if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+        buf = [...buf, e.key].slice(-10);
+        if (buf.slice(-4).join('').toLowerCase() === 'sudo') {
+          show('visitor is not in the sudoers file. This incident will be reported. 🙂');
+        } else if (buf.join(',') === konami.join(',')) {
+          show('$ sudo hire suga  →  [sudo] permission granted ✔');
+        }
+      });
+    </script>
+  </body>
+</html>
