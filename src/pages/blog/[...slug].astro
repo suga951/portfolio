@@ -1,0 +1,29 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+const { post } = Astro.props;
+const { Content } = await render(post);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<Base title={post.data.title} description={post.data.description}>
+  <article class="mx-auto max-w-3xl px-5 py-14 sm:py-20">
+    <a href={`${base}/blog/`} class="font-mono text-sm text-accent hover:underline">← cd ..</a>
+    <p class="mt-8 mb-2 truncate font-mono text-xs text-muted sm:text-sm" aria-hidden="true">
+      <span class="ps1">suga@dev</span>:<span class="text-accent-2">~/blog</span>$ cat {post.id}.md
+    </p>
+    <div class="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs text-muted">
+      <time datetime={post.data.pubDate.toISOString()}>{post.data.pubDate.toISOString().slice(0, 10)}</time>
+      {post.data.tags.length > 0 && <span>· {post.data.tags.map((t) => `#${t}`).join(' ')}</span>}
+      {post.data.draft && <span class="todo">Draft / placeholder</span>}
+    </div>
+    <h1 class="mt-4 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">{post.data.title}</h1>
+    <div class="prose mt-10 max-w-none prose-neutral dark:prose-invert prose-headings:tracking-tight prose-a:text-accent prose-blockquote:rounded-r-xl prose-blockquote:border-accent prose-blockquote:bg-accent/10 prose-blockquote:py-1 prose-blockquote:not-italic prose-pre:rounded-xl prose-pre:border prose-pre:border-line prose-code:before:content-none prose-code:after:content-none">
+      <Content />
+    </div>
+  </article>
+</Base>
