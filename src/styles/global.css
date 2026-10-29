@@ -1,0 +1,114 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/* Dark mode: manual toggle (data-theme on <html>) wins; otherwise follow the OS. */
+@custom-variant dark {
+  &:where([data-theme='dark'], [data-theme='dark'] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme='light']), :root:not([data-theme='light']) *) {
+      @slot;
+    }
+  }
+}
+
+/* Semantic color tokens — change the palette here. */
+:root {
+  --c-bg: #fbfbfa;
+  --c-surface: #ffffff;
+  --c-fg: #0a0a0b;
+  --c-muted: #5b5f68;
+  --c-line: #e7e7ea;
+  --c-accent: #059669;
+  --c-accent-2: #0891b2;
+  --c-on-accent: #ffffff;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --c-bg: #07090c; --c-surface: #0d1117; --c-fg: #e6e8eb; --c-muted: #8b929c;
+    --c-line: #1c222b; --c-accent: #34d399; --c-accent-2: #22d3ee; --c-on-accent: #04130d;
+    color-scheme: dark;
+  }
+}
+:root[data-theme='dark'] {
+  --c-bg: #07090c; --c-surface: #0d1117; --c-fg: #e6e8eb; --c-muted: #8b929c;
+  --c-line: #1c222b; --c-accent: #34d399; --c-accent-2: #22d3ee; --c-on-accent: #04130d;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--c-bg);
+  --color-surface: var(--c-surface);
+  --color-fg: var(--c-fg);
+  --color-muted: var(--c-muted);
+  --color-line: var(--c-line);
+  --color-accent: var(--c-accent);
+  --color-accent-2: var(--c-accent-2);
+  --color-on-accent: var(--c-on-accent);
+}
+
+@theme {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  --animate-blink: blink 1.1s steps(1) infinite;
+  --animate-ping-soft: ping-soft 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+  @keyframes ping-soft {
+    75%, 100% { transform: scale(2.2); opacity: 0; }
+  }
+}
+
+@layer base {
+  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+  body {
+    @apply bg-bg text-fg font-sans antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+  ::selection { background: color-mix(in oklab, var(--c-accent) 30%, transparent); }
+  :focus-visible { outline: 2px solid var(--c-accent); outline-offset: 3px; border-radius: 6px; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0s !important; animation-iteration-count: 1 !important; transition-duration: 0s !important; }
+  }
+}
+
+/* Small reusable components (kept here so markup stays readable). */
+@layer components {
+  .btn {
+    @apply inline-flex items-center gap-2 rounded-xl border border-line bg-surface px-4.5 py-2.5 text-sm font-semibold text-fg
+      shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-accent/60 hover:shadow-md;
+  }
+  .btn-primary {
+    @apply border-transparent bg-accent text-on-accent shadow-[0_8px_30px_-8px_var(--c-accent)] hover:border-transparent hover:brightness-110;
+  }
+  .card {
+    @apply rounded-2xl border border-line bg-surface/70 p-6 shadow-sm backdrop-blur-sm transition duration-300
+      hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_12px_40px_-16px_color-mix(in_oklab,var(--c-accent)_45%,transparent)];
+  }
+  .chip {
+    @apply inline-flex items-center rounded-md border border-line bg-bg/60 px-2 py-0.5 font-mono text-xs text-muted;
+  }
+  .todo {
+    @apply inline-flex items-center rounded-md bg-amber-100 px-1.5 py-0.5 font-mono text-[0.68rem] font-bold tracking-wider text-amber-800 uppercase
+      dark:bg-amber-400/15 dark:text-amber-300;
+  }
+  .placeholder-text { @apply text-muted italic; }
+  .ps1 { @apply text-accent; }
+  .block-cursor {
+    @apply ml-1.5 inline-block h-[1.05em] w-[0.55em] translate-y-[0.15em] animate-blink bg-accent;
+  }
+  /* Terminal window chrome */
+  .term {
+    @apply overflow-hidden rounded-2xl border border-line bg-surface shadow-xl shadow-black/5 dark:shadow-black/40;
+  }
+  .term-bar {
+    @apply flex items-center gap-2 border-b border-line bg-fg/[0.03] px-4 py-2.5;
+  }
+  .term-dot { @apply size-3 rounded-full; }
+}
