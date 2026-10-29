@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../site.config';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const user = site.name.toLowerCase();
+const ls = [
+  { href: `${base}/`, label: 'home/' },
+  { href: `${base}/#projects`, label: 'projects/' },
+  { href: `${base}/blog/`, label: 'blog/' },
+  { href: `${base}/#contact`, label: 'contact.sh' },
+];
+---
+<Base title={`404 — ${site.name}`} description="Page not found.">
+  <section class="relative isolate overflow-hidden">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_right,var(--c-line)_1px,transparent_1px),linear-gradient(to_bottom,var(--c-line)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_40%,#000_30%,transparent_100%)] opacity-60"></div>
+    <div aria-hidden="true" class="pointer-events-none absolute top-0 left-1/2 -z-10 h-96 w-[40rem] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(239_68_68/0.12),transparent)] blur-2xl"></div>
+    <div class="mx-auto max-w-3xl px-5 py-20 sm:py-28">
+      <p class="mb-6 text-center font-mono text-7xl font-bold tracking-tighter text-fg/10 sm:text-8xl" aria-hidden="true">404</p>
+      <div class="term">
+        <div class="term-bar" aria-hidden="true">
+          <span class="term-dot bg-[#ff5f57]"></span><span class="term-dot bg-[#febc2e]"></span><span class="term-dot bg-[#28c840]"></span>
+          <span class="ml-2 truncate font-mono text-xs text-muted">{user}@dev: ~</span>
+        </div>
+        <div class="space-y-2 p-6 font-mono text-sm break-words sm:text-[0.95rem]">
+          <h1 class="sr-only">404 — Page not found</h1>
+          <p aria-hidden="true"><span class="ps1">{user}@dev:~$</span> cd <span id="path">/this-page</span></p>
+          <p class="text-red-600 dark:text-red-400">bash: cd: <span id="path2">/this-page</span>: No such file or directory</p>
+          <p class="text-muted">404 · The page you're looking for doesn't exist (or moved).</p>
+          <p class="pt-2" aria-hidden="true"><span class="ps1">{user}@dev:~$</span> ls</p>
+          <ul class="flex flex-wrap gap-x-6 gap-y-1">
+            {ls.map((l) => <li><a class="text-accent-2 underline-offset-4 hover:underline" href={l.href}>{l.label}</a></li>)}
+          </ul>
+          <p class="pt-2" aria-hidden="true"><span class="ps1">{user}@dev:~$</span> <span class="block-cursor ml-0"></span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script is:inline>
+    (function () {
+      var p = decodeURIComponent(location.pathname);
+      if (p && p !== '/404.html' && p !== '/404') {
+        document.getElementById('path').textContent = p;
+        document.getElementById('path2').textContent = p;
+      }
+    })();
+  </script>
+</Base>
