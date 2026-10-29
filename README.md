@@ -35,7 +35,6 @@ src/
   components/SectionHeading.astro ← shell-prompt line + section title
   styles/global.css        ← Tailwind entry: color tokens (light + dark), fonts, keyframes, small component classes
 public/                    ← Static files copied as-is (favicon, résumé PDF, images)
-.github/workflows/deploy.yml ← Optional GitHub Pages deploy
 ```
 
 ## Editing content
@@ -82,10 +81,8 @@ Build command: `npm run build` · Output directory: `dist`
 
 - **Netlify / Cloudflare Pages / Vercel:** push to GitHub, "Import project", pick the repo.
   Astro is auto-detected; otherwise set the build command and output dir above.
-- **GitHub Pages:**
-  1. Push to a repo; in *Settings → Pages* set *Source* to **GitHub Actions**.
-  2. The included workflow `.github/workflows/deploy.yml` builds and deploys on push to `main`.
-  3. In `astro.config.mjs` set `site: 'https://<username>.github.io'`. If the repo is **not**
-     named `<username>.github.io`, also add `base: '/<repo-name>'` (all internal links respect `base`).
+- **AWS Amplify Hosting:** in the Amplify console choose *Deploy an app* → GitHub, pick this repo
+  and the `main` branch. Astro is auto-detected; otherwise set the build command and output dir above.
+  Every push to `main` redeploys.
 
 After deploying, set `site` in `astro.config.mjs` to the real URL.
